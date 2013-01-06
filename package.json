@@ -1,0 +1,12 @@
+{
+  "name": "xch-app",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-less": "*",
+    "grunt-stylus": "*",
+    "grunt-coffee": "*",
+    "grunt-jade": "*",
+    "grunt-replace": "*"
+  }
+}

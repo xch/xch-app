@@ -1,0 +1,16 @@
+{
+  "name": "xch-app",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "*",
+    "underscore": "*",
+    "backbone": "*",
+    "backbone.declarative": "git://github.com/Codecademy/backbone.declarative.git",
+    "backbone.babysitter": "*",
+    "Backbone-Mediator": "git://github.com/chalbert/Backbone-Mediator.git",
+    "backbone-relational": "*",
+    "imagesloaded": "*",
+    "bootstrap": "*",
+    "moment": "*"
+  }
+}
