@@ -1,0 +1,8 @@
+extends layouts/page
+
+block page
+  .row
+    - var speed__ = speed + ' ' + plural(speed, 'пост', 'поста', 'постов') + '/час'
+    .span12.board-header= title
+      span.label.label-info= speed__
+  .row(data-board-threads)

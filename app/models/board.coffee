@@ -9,3 +9,9 @@ class @Board extends Backbone.RelationalModel
         key: 'board'
     }
   ]
+
+  url: -> "/#{@getSlug()}/"
+
+  parse: (data) -> board data
+
+  getSlug: -> @get 'slug'

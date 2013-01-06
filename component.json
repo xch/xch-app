@@ -11,6 +11,7 @@
     "backbone-relational": "*",
     "imagesloaded": "*",
     "bootstrap": "*",
-    "moment": "*"
+    "moment": "*",
+    "backbone-support": "git://github.com/thoughtbot/backbone-support.git"
   }
 }

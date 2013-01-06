@@ -1,0 +1,17 @@
+extends layouts/page
+
+block welcome
+  .header-welcome Добро пожаловать. Снова.
+
+block page
+  .row
+    .span2
+    .span8
+      .row-fluid
+        .span6
+          each section in _.first(sections, 2)
+            include includes/chan-section
+        .span6
+          each section in _.rest(sections, 2)
+            include includes/chan-section
+    .span2

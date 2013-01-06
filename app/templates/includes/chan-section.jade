@@ -1,0 +1,4 @@
+.chan-section
+  .section-title= section.title
+  each board in section.boards
+    a.section-board(href = url(board.slug))= board.title
