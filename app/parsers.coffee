@@ -16,7 +16,7 @@ parser = (data, struct) ->
 
 map = (parser) -> (els) -> (els.map (__, el) -> parser el).toArray()
 
-id = (el) -> (attr('id')(el)).match(/(\d+)/g)[0]
+id = (el) -> (match = (attr('id')(el)).match(/(\d+)/g)) and match and match[0]
 speed = (__, data) -> data.match(/\<\!--\<div\sclass\=\"speed\"\>--\>\[Скорость\sборды\:\s(\d+)\sп\.\/час\]\<\!--\<\/div\>--\>/)[1]
 omit = (el) -> text(el).match /(\d+)/g
 
@@ -41,21 +41,21 @@ post = (data) -> parser data,
   img: ['[name=expandfunc]', attr 'href']
   thumb: ['img.img', attr 'src']
 
-@thread = (data) ->
-  parser data,
-    id: [id]
-    title: ['#title center', text]
-    omit: ['.omittedposts', omit]
-    post: ['.oppost', post]
-    posts: ['.post', map post]
-
-@board = (data) -> parser data,
+thread = @threadToJSON = (data) -> parser data,
+  id: [id]
   title: ['#title center', text]
-  threads: ['.thread', map thread]
-  nav: ['.nowrap', map nav]
-  speed: [speed]
+  omit: ['.omittedposts', omit]
+  post: ['.oppost', post]
+  posts: ['.post', map post]
 
-@chan = (->
+@boardToJSON = (data) ->
+  parser data,
+    title: ['#title center', text]
+    threads: ['.thread', map thread]
+    nav: ['.nowrap', map nav]
+    speed: [speed]
+
+@chanToJSON = (->
   board = (data) -> parser data,
     slug: [attr 'href']
     title: [text]

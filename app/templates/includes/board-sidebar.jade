@@ -1,0 +1,23 @@
+extends ../layouts/sidebar
+
+block sidebar-body
+  li.nav-header Комментарии
+  li
+    select
+      option Три последних
+      option Все подгруженные
+      option Без комментариев
+  li.nav-header Изображения
+  li
+    select
+      option Уменьшенные
+      option Оригинальные
+  li.nav-header Автообновление
+  li
+    select
+      option Отключено
+      option Непрерывно
+      option С интервалом
+  li.divider
+  li
+    button.btn.btn-primary(type = 'button') Обновить доску

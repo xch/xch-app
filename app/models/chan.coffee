@@ -1,3 +1,5 @@
 class @Chan extends Backbone.RelationalModel
   url: '/'
-  parse: (data) -> chan data
+  parse: (data) -> chanToJSON data
+
+Chan.setup()

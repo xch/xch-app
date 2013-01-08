@@ -1,10 +1,12 @@
 class @Board extends Backbone.RelationalModel
+  idAttribute: 'slug'
+
   relations: [
     {
+      autoFetch: on
       type: 'HasMany'
       key: 'threads'
       relatedModel: 'Thread'
-      collectionType: 'Threads'
       reverseRelation:
         key: 'board'
     }
@@ -12,6 +14,8 @@ class @Board extends Backbone.RelationalModel
 
   url: -> "/#{@getSlug()}/"
 
-  parse: (data) -> board data
+  parse: (data) -> boardToJSON data
 
   getSlug: -> @get 'slug'
+
+Board.setup()
