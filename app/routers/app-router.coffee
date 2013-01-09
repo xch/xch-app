@@ -1,39 +1,38 @@
-fetcher = (model, options) -> model.fetch(options)
-
-fetch = (Model, keys, fetch = fetcher) ->
-  (params...) ->
-    defer = new $.Deferred()
-    if (model = Model.findOrCreate(params[0]))
-      options =
-        update: on
-        add: on
-    else
-      model = new Model()
-      options = {}
-    model.set _.object keys, params
-    fetch(model, options).done -> defer.resolve model
-    defer.promise()
-
 class @AppRouter extends Support.SwappingRouter
   routes:
     '!/': 'chan'
-    '!/:slug/': 'board'
-    '!/:slug/:id/': 'thread'
+    '!/:boardId/': 'board'
+    '!/:boardId/:id/': 'thread'
 
-  initialize: (options) -> @el = ($ 'body')
+  initialize: (options) ->
+    @el = ($ 'body')
 
-  thread: (slug, id) ->
-    fetch(Thread, ['id', 'slug'], (model, options) -> model.fetch__(options))(id, slug).done (thread) =>
+    Backbone.Mediator.subscribe 'popup', (boardId, threadId, postId, event) ->
+      thread = Thread.findOrCreate id: "#{boardId}-#{threadId}"
+      post = thread.get('posts').get("#{boardId}-#{postId}")
+      popup = new PostView(model: post)
+      el = popup.render().$el.appendTo ($ 'body')
+      el.addClass 'free'
+      el.css
+        left: event.pageX
+        top: event.pageY
+
+  thread: (boardId, uri) ->
+    thread = Thread.findOrCreate {boardId, uri}
+    thread.fetch().done =>
       @swap new ThreadView(model: thread)
-      (posts = thread.get('posts')).each (post) -> posts.trigger 'add', post
+      posts = thread.get 'posts'
+      posts.each (post) ->
+        posts.trigger 'add', post
 
-  board: (slug) ->
-    fetch(Board, ['slug'])(slug).done (board) =>
+  board: (boardId) ->
+    board = Board.findOrCreate id: boardId
+    board.fetch().done =>
       @swap new BoardView(model: board)
-      (threads = board.get('threads')).each (thread) ->
+      threads = board.get 'threads'
+      threads.each (thread) ->
         threads.trigger 'add', thread
-        (posts = thread.get('posts')).each (post) ->
+        posts = thread.get 'posts'
+        posts.each (post) ->
           posts.trigger 'add', post
-
-  chan: ->
-    (chan = new Chan()).fetch().done => @swap new ChanView(model: chan)
+  chan: -> _.tap new Chan(), (chan) => chan.fetch().done => @swap new ChanView(model: chan)

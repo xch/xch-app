@@ -1,6 +1,4 @@
 class @Board extends Backbone.RelationalModel
-  idAttribute: 'slug'
-
   relations: [
     {
       autoFetch: on
@@ -11,11 +9,6 @@ class @Board extends Backbone.RelationalModel
         key: 'board'
     }
   ]
-
-  url: -> "/#{@getSlug()}/"
-
-  parse: (data) -> boardToJSON data
-
-  getSlug: -> @get 'slug'
-
-Board.setup()
+  getId: -> @get 'id'
+  url: -> "/#{@getId()}/"
+  fetch: (options) -> (@sync 'read', @, options).done (data) => @set boardToJSON data, @getId()

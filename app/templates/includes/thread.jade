@@ -2,8 +2,8 @@
   .thread-info
     span.info-poster= post.poster
     span.info-created-at= post.createdAt
-    span.label.label-important= post.id
-  a.thread-subject(href = '/x/#!/' + slug + '/' + post.id + '/')= post.subject || 'Без темы'
+    span.label.label-important= uri
+  a.thread-subject(href = '/x/#!/' + boardId + '/' + uri + '/')= post.subject || 'Без темы'
   .thread-img
     img(src = post.img)
   .thread-text!= post.html

@@ -23,8 +23,7 @@ class @ThreadView extends Backbone.View
       postView.remove()
 
   render: ->
-    @$el.html template @template, _.defaults @model.toJSON(),
-      slug: @model.get('slug') or @model.get('board').get('slug')
+    @$el.html template @template, @model.toJSON()
     @
 
   remove: ->

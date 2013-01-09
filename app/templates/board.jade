@@ -4,7 +4,7 @@ block page
   .row
     - var speed__ = speed + ' ' + plural(speed, 'пост', 'поста', 'постов') + '/час'
     .span12
-      a.board-header(href = '/x/#!/' + slug + '/')= title
+      a.board-header(href = '/x/#!/' + id + '/')= title
       span.label.label-info= speed__
   .row(data-board-threads)
 
